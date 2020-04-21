@@ -36,7 +36,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
     private int mColumns;
     private boolean mMaterial;
     private boolean mBackwardsOrder;
-    private int mStrokeWidth;
+    private int mcustomStrokeWidth;
     private int mStrokeColor;
 
     private View mColorView;
@@ -59,7 +59,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
             mColumns = a.getInt(R.styleable.ColorPreference_columns, 5);
             mMaterial = a.getBoolean(R.styleable.ColorPreference_material, true);
             mBackwardsOrder = a.getBoolean(R.styleable.ColorPreference_backwardsOrder, true);
-            mStrokeWidth = a.getInt(R.styleable.ColorPreference_strokeWidth, 0);
+            mcustomStrokeWidth = a.getInt(R.styleable.ColorPreference_customStrokeWidth, 0);
             mStrokeColor = a.getColor(R.styleable.ColorPreference_strokeColor, 0xff000000);
         } finally {
             a.recycle();
@@ -110,7 +110,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         ColorPickerDialog d = ColorPickerDialog.newInstance(mTitle,
                 colors, mCurrentValue, mColumns,
                 ColorPickerDialog.SIZE_SMALL, mBackwardsOrder,
-                mStrokeWidth, mStrokeColor);
+                mcustomStrokeWidth, mStrokeColor);
         d.setOnColorSelectedListener(this);
         d.show(((Activity) getContext()).getFragmentManager(), null);
     }
@@ -146,7 +146,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         myState.columns = mColumns;
         myState.material = mMaterial;
         myState.backwardsOrder = mBackwardsOrder;
-        myState.strokeWidth = mStrokeWidth;
+        myState.customStrokeWidth = mcustomStrokeWidth;
         myState.strokeColor = mStrokeColor;
         return myState;
     }
@@ -170,7 +170,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         mColumns = myState.columns;
         mMaterial = myState.material;
         mBackwardsOrder = myState.backwardsOrder;
-        mStrokeWidth = myState.strokeWidth;
+        mcustomStrokeWidth = myState.customStrokeWidth;
         mStrokeColor = myState.strokeColor;
 
         // Update shown color
@@ -240,7 +240,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
         int columns;
         boolean material;
         boolean backwardsOrder;
-        int strokeWidth;
+        int customStrokeWidth;
         int strokeColor;
 
         public SavedState(Parcelable superState) {
@@ -255,7 +255,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
             columns = source.readInt();
             material = source.readByte() != 0;
             backwardsOrder = source.readByte() != 0;
-            strokeWidth = source.readInt();
+            customStrokeWidth = source.readInt();
             strokeColor = source.readInt();
         }
 
@@ -268,7 +268,7 @@ public class ColorPreference extends Preference implements ColorPickerSwatch
             dest.writeInt(columns);
             dest.writeByte((byte) (material ? 1 : 0));
             dest.writeByte((byte) (backwardsOrder ? 1 : 0));
-            dest.writeInt(strokeWidth);
+            dest.writeInt(customStrokeWidth);
             dest.writeInt(strokeColor);
         }
     }

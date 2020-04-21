@@ -43,7 +43,7 @@ For more details, see [example](https://github.com/xdtianyu/ColorPicker/tree/mas
         tools:columns="5"
         tools:material="true"
         tools:backwardsOrder="true"
-        tools:strokeWidth="0"
+        tools:customStrokeWidth="0"
         tools:strokeColor="@android:color/black"
         android:defaultValue="@color/flamingo"/>
 ```

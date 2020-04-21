@@ -42,7 +42,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected static final String KEY_COLUMNS = "columns";
     protected static final String KEY_SIZE = "size";
     protected static final String KEY_BACKWARDS_ORDER = "backwards_order";
-    protected static final String KEY_STROKE_WIDTH = "stroke_width";
+    protected static final String KEY_CUSTOM_STROKE_WIDTH = "custom_stroke_width";
     protected static final String KEY_STROKE_COLOR = "stroke_color";
     protected AlertDialog mAlertDialog;
     protected int mTitleResId = R.string.color_picker_default_title;
@@ -51,7 +51,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     protected int mSelectedColor;
     protected int mColumns;
     protected int mSize;
-    protected int mStrokeWidth;
+    protected int mcustomStrokeWidth;
     protected int mStrokeColor;
     protected boolean mBackwardsOrder;
     protected OnColorSelectedListener mListener;
@@ -73,27 +73,27 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
     }
 
     public static ColorPickerDialog newInstance(int titleResId, int[] colors, int selectedColor,
-            int columns, int size, boolean backwardsOrder, int strokeWidth, int strokeColor) {
+            int columns, int size, boolean backwardsOrder, int customStrokeWidth, int strokeColor) {
         ColorPickerDialog ret = new ColorPickerDialog();
         ret.initialize(titleResId, colors, selectedColor, columns, size, backwardsOrder,
-                strokeWidth, strokeColor);
+                customStrokeWidth, strokeColor);
         return ret;
     }
 
     public void initialize(int titleResId, int[] colors, int selectedColor, int columns, int size,
-            boolean backwardsDisable, int strokeWidth, int strokeColor) {
-        setArguments(titleResId, columns, size, backwardsDisable, strokeWidth, strokeColor);
+            boolean backwardsDisable, int customStrokeWidth, int strokeColor) {
+        setArguments(titleResId, columns, size, backwardsDisable, customStrokeWidth, strokeColor);
         setColors(colors, selectedColor);
     }
 
     public void setArguments(int titleResId, int columns, int size, boolean backwardsOrder,
-            int strokeWidth, int strokeColor) {
+            int customStrokeWidth, int strokeColor) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_TITLE_ID, titleResId);
         bundle.putInt(KEY_COLUMNS, columns);
         bundle.putInt(KEY_SIZE, size);
         bundle.putBoolean(KEY_BACKWARDS_ORDER, backwardsOrder);
-        bundle.putInt(KEY_STROKE_WIDTH, strokeWidth);
+        bundle.putInt(KEY_CUSTOM_STROKE_WIDTH, customStrokeWidth);
         bundle.putInt(KEY_STROKE_COLOR, strokeColor);
         setArguments(bundle);
     }
@@ -111,7 +111,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
             mColumns = getArguments().getInt(KEY_COLUMNS);
             mSize = getArguments().getInt(KEY_SIZE);
             mBackwardsOrder = getArguments().getBoolean(KEY_BACKWARDS_ORDER);
-            mStrokeWidth = getArguments().getInt(KEY_STROKE_WIDTH);
+            mcustomStrokeWidth = getArguments().getInt(KEY_CUSTOM_STROKE_WIDTH);
             mStrokeColor = getArguments().getInt(KEY_STROKE_COLOR);
         }
 
@@ -121,7 +121,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
             mColorContentDescriptions = savedInstanceState.getStringArray(
                     KEY_COLOR_CONTENT_DESCRIPTIONS);
             mBackwardsOrder = savedInstanceState.getBoolean(KEY_BACKWARDS_ORDER);
-            mStrokeWidth = (int) savedInstanceState.getSerializable(KEY_STROKE_WIDTH);
+            mcustomStrokeWidth = (int) savedInstanceState.getSerializable(KEY_CUSTOM_STROKE_WIDTH);
             mStrokeColor = (int) savedInstanceState.getSerializable(KEY_STROKE_COLOR);
         }
     }
@@ -162,7 +162,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         if (color != mSelectedColor) {
             mSelectedColor = color;
             // Redraw palette to show checkmark on newly selected color before dismissing.
-            mPalette.drawPalette(mColors, mSelectedColor, mStrokeWidth, mStrokeColor);
+            mPalette.drawPalette(mColors, mSelectedColor, mcustomStrokeWidth, mStrokeColor);
         }
 
         dismiss();
@@ -200,7 +200,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
 
     private void refreshPalette() {
         if (mPalette != null && mColors != null) {
-            mPalette.drawPalette(mColors, mSelectedColor, mColorContentDescriptions, mStrokeWidth,
+            mPalette.drawPalette(mColors, mSelectedColor, mColorContentDescriptions, mcustomStrokeWidth,
                     mStrokeColor);
         }
     }
@@ -227,9 +227,9 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         }
     }
 
-    public void setStrokeWidth(int width) {
-        if (mStrokeWidth != width) {
-            mStrokeWidth = width;
+    public void setcustomStrokeWidth(int width) {
+        if (mcustomStrokeWidth != width) {
+            mcustomStrokeWidth = width;
             refreshPalette();
         }
     }
@@ -248,7 +248,7 @@ public class ColorPickerDialog extends DialogFragment implements OnColorSelected
         outState.putSerializable(KEY_SELECTED_COLOR, mSelectedColor);
         outState.putStringArray(KEY_COLOR_CONTENT_DESCRIPTIONS, mColorContentDescriptions);
         outState.putBoolean(KEY_BACKWARDS_ORDER, mBackwardsOrder);
-        outState.putInt(KEY_STROKE_WIDTH, mStrokeWidth);
+        outState.putInt(KEY_CUSTOM_STROKE_WIDTH, mcustomStrokeWidth);
         outState.putInt(KEY_STROKE_COLOR, mStrokeColor);
     }
 }

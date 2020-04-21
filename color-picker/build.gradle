@@ -1,3 +1,7 @@
+plugins {
+    id 'maven-publish'
+}
+
 apply plugin: 'com.android.library'
 
 ext {
@@ -13,8 +17,8 @@ ext {
     siteUrl = 'https://github.com/xdtianyu/ColorPicker'
     gitUrl = 'https://github.com/xdtianyu/ColorPicker'
 
-    libraryVersionCode = 5
-    libraryVersion = '0.0.5'
+    libraryVersionCode = 7
+    libraryVersion = '0.0.7'
 
     developerId = 'xdtianyu'
     developerName = 'xdtianyu'
@@ -40,6 +44,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
