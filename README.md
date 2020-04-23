@@ -1,3 +1,46 @@
+
+# A poor man's fork
+
+A fork of [xdtianyu/ColorPicker](https://github.com/xdtianyu/ColorPicker) (a possibly abandoned library) that allows it to build against newer version of Android build tools. 
+
+"poor man's", because this was the bare minimum required to get it to compile. A public function name might have changed in the ctrl-F process.
+
+## How to use this poor man's fork
+
+This will be required for every system where you want to build your project that consumes this library. Someone please feel free to publish this on maven central!
+
+Run:
+```
+git clone git@github.com:locofocos/ColorPicker.git
+cd ColorPicker
+gradlew clean
+gradlew build -x lintVitalRelease -x lint
+gradlew install
+gradlew publishToMavenLocal
+
+# or some combinations of commands like that, until you see the new version appear in your .m2 folder
+```
+
+Then in the project where you consume it, add mavenLocal() as a repository in 2 places. See https://stackoverflow.com/a/39015691. Like so:
+```
+buildscript {
+    repositories {
+        mavenLocal()
+        ...
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        ...
+    }
+}
+```
+Bump the version from 0.0.5 (or whatever you're using) to 0.0.7 (this fork's version). Then compile your project and enjoy.
+
+Original readme below:
+
 # ColorPicker
 An easy to use android color picker library. Based on [android-colorpicker](https://github.com/woalk/android-colorpicker).
 
