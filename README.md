@@ -9,7 +9,7 @@ A fork of [xdtianyu/ColorPicker](https://github.com/xdtianyu/ColorPicker) (a pos
 
 This will be required for every system where you want to build your project that consumes this library. Someone please feel free to publish this on maven central!
 
-Run:
+~~Run:~~
 ```
 git clone git@github.com:locofocos/ColorPicker.git
 cd ColorPicker
@@ -25,6 +25,9 @@ cd ColorPicker
 # replace all instances of "unspecified" with 0.0.7 (file contents and filenames).
 # (yes I hate doing this. Someone please fix this library, I can't get the build configured)
 ```
+
+Update - forget spending hours coercing gradle and Android Studio to let you build this every time you need to update your app which consumes this on a new laptop. Just copy `m2-contents` into your .m2 folder and be done with it.
+
 
 Then in the project where you consume it, add mavenLocal() as a repository in 2 places. See https://stackoverflow.com/a/39015691. Like so:
 ```
