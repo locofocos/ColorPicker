@@ -13,12 +13,17 @@ Run:
 ```
 git clone git@github.com:locofocos/ColorPicker.git
 cd ColorPicker
-gradlew clean
-gradlew build -x lintVitalRelease -x lint
-gradlew install
-gradlew publishToMavenLocal
+./gradlew clean
+./gradlew build -x lintVitalRelease -x lint
+./gradlew install
+./gradlew publishToMavenLocal
 
 # or some combinations of commands like that, until you see the new version appear in your .m2 folder
+
+# go to .m2/repository/org/xdty/preference/color-picker
+# if you see an "unspecified" version instead of 0.0.7,
+# replace all instances of "unspecified" with 0.0.7 (file contents and filenames).
+# (yes I hate doing this. Someone please fix this library, I can't get the build configured)
 ```
 
 Then in the project where you consume it, add mavenLocal() as a repository in 2 places. See https://stackoverflow.com/a/39015691. Like so:
